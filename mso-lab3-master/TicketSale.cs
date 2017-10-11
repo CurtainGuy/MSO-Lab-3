@@ -11,7 +11,7 @@ namespace Lab3
         //calculatePrice calculates the price using the information form ticket, it checks Tariefeenheden and the PricingTable.
         //mogen we dingen in UIinfo aanpassen?
         //ik zit er over te denken om calculateprice op te splitsen, dan worden de methodes wat korter.
-        public void calculatePrice(UIInfo ticket)
+        public float calculatePrice(UIInfo ticket)
         {
             int tariefeenheden = Tariefeenheden.getTariefeenheden(ticket.From, ticket.To);
             int tablecolumn;
@@ -22,14 +22,27 @@ namespace Lab3
             float price = PricingTable.getPrice(tariefeenheden, tablecolumn);
             if (ticket.Way == UIWay.Return) price *= 2;
             if (ticket.Payment == UIPayment.CreditCard) price += 1;
+            return price;
         }
         public void getPrice()
         {
 
         }
-        public void newPayment(float price)
+        //newpayment maakt een payment in de juiste vorm
+        public void newPayment(float price,UIInfo ticket)
         {
-            Payment p = new Payment(price);
+            if (ticket.Payment == UIPayment.Cash)
+            {
+                Payment p = new Cashpayment(price);
+            }
+            if (ticket.Payment == UIPayment.CreditCard)
+            {
+                Payment p = new Creditpayment(price);
+            }
+            if (ticket.Payment == UIPayment.DebitCard)
+            {
+                Payment p = new Debitpayment(price);
+            }
         }
     }
 }

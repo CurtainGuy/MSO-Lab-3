@@ -5,14 +5,11 @@ using System.Text;
 
 namespace Lab3
 {
-    class Payment
+    abstract class Payment
     {
-        float ticketprice;
-        public Payment(float price)
-        {
-            ticketprice = price;
-        }
-
+        float price;
+        protected bool ispaymentdone;
+        
         public void handlePayment()
         {
             

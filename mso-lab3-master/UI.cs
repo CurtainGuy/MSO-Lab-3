@@ -22,14 +22,20 @@ namespace Lab3
 		{
 			initializeControls ();
 		}
-
-		private void handlePayment(UIInfo info)
+        private void handlePayment(UIInfo ticket)
+        {
+            TicketSale ticketsale = new TicketSale();
+            float price = ticketsale.calculatePrice(ticket);
+            ticketsale.newPayment(price,ticket);
+            //misschien geef ik ticket gewoon mee aan Ticketsale zodat UI niet dat hoeft aante roepen
+        }
+        //tactical re-name
+		private void handleDayment(UIInfo info)
 		{
 			// *************************************
 			// This is the code you need to refactor
 			// *************************************
-            //dit staat nu in ticketsale, de UI moet Ticketsale.calculateprice doen.
-			// Get number of tariefeenheden
+            // Get number of tariefeenheden
 			int tariefeenheden = Tariefeenheden.getTariefeenheden (info.From, info.To);
 
 			// Compute the column in the table based on choices
