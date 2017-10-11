@@ -254,7 +254,25 @@ namespace Lab3
 				(string)toBox.SelectedItem,
 				cls, way, dis, pment);
 		}
-#endregion
-	}
+        #endregion
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // UI
+            // 
+            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.Name = "UI";
+            this.Load += new System.EventHandler(this.UI_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void UI_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
 
