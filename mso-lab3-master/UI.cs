@@ -28,7 +28,7 @@ namespace Lab3
 			// *************************************
 			// This is the code you need to refactor
 			// *************************************
-
+            //dit staat nu in ticketsale, de UI moet Ticketsale.calculateprice doen.
 			// Get number of tariefeenheden
 			int tariefeenheden = Tariefeenheden.getTariefeenheden (info.From, info.To);
 
