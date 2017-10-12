@@ -8,8 +8,8 @@ namespace Lab3
 		[STAThread]
 		public static void Main (string[] args)
 		{
-			var ui = new UI ();
-			Application.Run (ui);
+			var vm = new VendingMachine ();
+			Application.Run (vm);
 		}
 	}
 }

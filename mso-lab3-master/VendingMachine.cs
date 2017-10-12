@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Lab3
 {
-	public class UI : Form
+	public class VendingMachine : Form
 	{
 		ComboBox fromBox;
 		ComboBox toBox;
@@ -18,11 +18,11 @@ namespace Lab3
 		ComboBox payment;
 		Button pay;
 
-		public UI ()
+		public VendingMachine ()
 		{
 			initializeControls ();
 		}
-        private void handlePayment(UIInfo ticket)
+        private void handlePayment(Ticket ticket)
         {
             TicketSale ticketsale = new TicketSale();
             float price = ticketsale.calculatePrice(ticket);
@@ -30,7 +30,7 @@ namespace Lab3
             //misschien geef ik ticket gewoon mee aan Ticketsale zodat UI niet dat hoeft aante roepen
         }
         //tactical re-name
-		private void handleDayment(UIInfo info)
+		private void handleDayment(Ticket info)
 		{
 			// *************************************
 			// This is the code you need to refactor
@@ -41,8 +41,8 @@ namespace Lab3
 			// Compute the column in the table based on choices
 			int tableColumn;
 			// First based on class
-			switch (info.Class) {
-			case UIClass.FirstClass:
+			switch (info.TClass) {
+			case Class.FirstClass:
 				tableColumn = 3;
 				break;
 			default:
@@ -50,40 +50,40 @@ namespace Lab3
 				break;
 			}
 			// Then, on the discount
-			switch (info.Discount) {
-			case UIDiscount.TwentyDiscount:
+			switch (info.TDiscount) {
+			case Discount.TwentyDiscount:
 				tableColumn += 1;
 				break;
-			case UIDiscount.FortyDiscount:
+			case Discount.FortyDiscount:
 				tableColumn += 2;
 				break;
 			}
 
 			// Get price
 			float price = PricingTable.getPrice (tariefeenheden, tableColumn);
-			if (info.Way == UIWay.Return) {
+			if (info.TWay == Way.Return) {
 				price *= 2;
 			}
 			// Add 50 cent if paying with credit card
-			if (info.Payment == UIPayment.CreditCard) {
+			if (info.TPayment == Payment.CreditCard) {
 				price += 0.50f;
 			}
 
 			// Pay
-			switch (info.Payment) {
-			case UIPayment.CreditCard:
+			switch (info.TPayment) {
+			case Payment.CreditCard:
 				CreditCard c = new CreditCard ();
 				c.Connect ();
 				int ccid = c.BeginTransaction (price);
 				c.EndTransaction (ccid);
 				break;
-			case UIPayment.DebitCard:
+			case Payment.DebitCard:
 				DebitCard d = new DebitCard ();
 				d.Connect ();
 				int dcid = d.BeginTransaction (price);
 				d.EndTransaction (dcid);
 				break;
-			case UIPayment.Cash:
+			case Payment.Cash:
 				IKEAMyntAtare2000 coin = new IKEAMyntAtare2000 ();
 				coin.starta ();
 				coin.betala ((int) Math.Round(price * 100));
@@ -221,42 +221,42 @@ namespace Lab3
 			pay.Click += (object sender, EventArgs e) => handlePayment(getUIInfo());
 		}
 
-		private UIInfo getUIInfo()
+		private Ticket getUIInfo()
 		{
-			UIClass cls;
+			Class cls;
 			if (firstClass.Checked)
-				cls = UIClass.FirstClass;
+				cls = Class.FirstClass;
 			else
-				cls = UIClass.SecondClass;
+				cls = Class.SecondClass;
 
-			UIWay way;
+			Way way;
 			if (oneWay.Checked)
-				way = UIWay.OneWay;
+				way = Way.OneWay;
 			else
-				way = UIWay.Return;
+				way = Way.Return;
 
-			UIDiscount dis;
+			Discount dis;
 			if (noDiscount.Checked)
-				dis = UIDiscount.NoDiscount;
+				dis = Discount.NoDiscount;
 			else if (twentyDiscount.Checked)
-				dis = UIDiscount.TwentyDiscount;
+				dis = Discount.TwentyDiscount;
 			else
-				dis = UIDiscount.FortyDiscount;
+				dis = Discount.FortyDiscount;
 
-			UIPayment pment;
+			Payment pment;
 			switch ((string)payment.SelectedItem) {
 			case "Credit card":
-				pment = UIPayment.CreditCard;
+				pment = Payment.CreditCard;
 				break;
 			case "Debit card":
-				pment = UIPayment.DebitCard;
+				pment = Payment.DebitCard;
 				break;
 			default:
-				pment = UIPayment.Cash;
+				pment = Payment.Cash;
 				break;
 			}
 
-			return new UIInfo ((string)fromBox.SelectedItem,
+			return new Ticket ((string)fromBox.SelectedItem,
 				(string)toBox.SelectedItem,
 				cls, way, dis, pment);
 		}
