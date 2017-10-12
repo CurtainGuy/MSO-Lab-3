@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Lab3
 {
-    class Debitpayment : Payment
+    class Debitpayment : PaymentMethod
     {
         public Debitpayment(float price)
         {            

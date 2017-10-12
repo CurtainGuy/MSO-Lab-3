@@ -2,41 +2,41 @@
 
 namespace Lab3
 {
-	public enum UIClass
+	public enum Class
 	{
 		FirstClass,
 		SecondClass
 	}
 
-	public enum UIWay
+	public enum Way
 	{
 		OneWay,
 		Return
 	}
 
-	public enum UIDiscount
+	public enum Discount
 	{
 		NoDiscount,
 		TwentyDiscount,
 		FortyDiscount
 	}
 
-	public enum UIPayment
+	public enum Payment
 	{
 		DebitCard,
 		CreditCard,
 		Cash
 	}
 
-	public struct UIInfo
+	public struct Ticket
 	{
 		string from, to;
-		UIClass cls;
-		UIWay way;
-		UIDiscount discount;
-		UIPayment payment;
+		Class cls;
+		Way way;
+		Discount discount;
+		Payment payment;
 
-		public UIInfo (string from, string to, UIClass cls, UIWay way, UIDiscount discount, UIPayment payment)
+		public Ticket (string from, string to, Class cls, Way way, Discount discount, Payment payment)
 		{
 			this.from = from;
 			this.to = to;
@@ -58,25 +58,25 @@ namespace Lab3
 			}
 		}
 
-		public UIClass Class {
+		public Class TClass {
 			get {
 				return cls;
 			}
 		}
 
-		public UIWay Way {
+		public Way TWay {
 			get {
 				return way;
 			}
 		}
 
-		public UIDiscount Discount {
+		public Discount TDiscount {
 			get {
 				return discount;
 			}
 		}
 
-		public UIPayment Payment {
+		public Payment TPayment {
 			get {
 				return payment;
 			}
