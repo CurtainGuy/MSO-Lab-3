@@ -22,14 +22,20 @@ namespace Lab3
 		{
 			initializeControls ();
 		}
-
-		private void handlePayment(UIInfo info)
+        private void handlePayment(UIInfo ticket)
+        {
+            TicketSale ticketsale = new TicketSale();
+            float price = ticketsale.calculatePrice(ticket);
+            ticketsale.newPayment(price,ticket);
+            //misschien geef ik ticket gewoon mee aan Ticketsale zodat UI niet dat hoeft aante roepen
+        }
+        //tactical re-name
+		private void handleDayment(UIInfo info)
 		{
 			// *************************************
 			// This is the code you need to refactor
 			// *************************************
-
-			// Get number of tariefeenheden
+            // Get number of tariefeenheden
 			int tariefeenheden = Tariefeenheden.getTariefeenheden (info.From, info.To);
 
 			// Compute the column in the table based on choices
@@ -254,7 +260,25 @@ namespace Lab3
 				(string)toBox.SelectedItem,
 				cls, way, dis, pment);
 		}
-#endregion
-	}
+        #endregion
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // UI
+            // 
+            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.Name = "UI";
+            this.Load += new System.EventHandler(this.UI_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void UI_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
 
