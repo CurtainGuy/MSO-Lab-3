@@ -18,7 +18,7 @@ namespace Lab3
             if (ticket.Class == UIClass.FirstClass) tablecolumn = 3;
             else tablecolumn = 0;
             if (ticket.Discount == UIDiscount.FortyDiscount) tablecolumn += 2;
-            else tablecolumn += 1;
+            else if (ticket.Discount == UIDiscount.TwentyDiscount) tablecolumn += 1;
             float price = PricingTable.getPrice(tariefeenheden, tablecolumn);
             if (ticket.Way == UIWay.Return) price *= 2;
             if (ticket.Payment == UIPayment.CreditCard) price += 0.5f;
