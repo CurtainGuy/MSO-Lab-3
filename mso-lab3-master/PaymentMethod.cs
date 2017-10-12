@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Lab3
 {
-    abstract class Payment
+    abstract class PaymentMethod
     {
         float price;
         protected bool ispaymentdone;
         
-        public virtual void handlePayment(float price)
+        protected virtual void handlePayment(float price)
         {
             ispaymentdone = true;
         }
