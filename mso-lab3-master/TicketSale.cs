@@ -21,7 +21,7 @@ namespace Lab3
             else tablecolumn += 1;
             float price = PricingTable.getPrice(tariefeenheden, tablecolumn);
             if (ticket.Way == UIWay.Return) price *= 2;
-            if (ticket.Payment == UIPayment.CreditCard) price += 1;
+            if (ticket.Payment == UIPayment.CreditCard) price += 0.5f;
             return price;
         }
         public void getPrice()
