@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Lab3
 {
-	public class UI : Form
+	public class VendingMachine : Form
 	{
 		ComboBox fromBox;
 		ComboBox toBox;
@@ -18,7 +18,7 @@ namespace Lab3
 		ComboBox payment;
 		Button pay;
 
-		public UI ()
+		public VendingMachine ()
 		{
 			initializeControls ();
 		}

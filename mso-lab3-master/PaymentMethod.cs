@@ -10,7 +10,7 @@ namespace Lab3
         float price;
         protected bool ispaymentdone;
         
-        public virtual void handlePayment(float price)
+        protected virtual void handlePayment(float price)
         {
             ispaymentdone = true;
         }

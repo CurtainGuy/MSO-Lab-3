@@ -7,13 +7,20 @@ namespace Lab3
 {
     class Debitpayment : PaymentMethod
     {
+        DebitCard d;
+        
         public Debitpayment(float price)
         {            
-			DebitCard d = new DebitCard();
+			d = new DebitCard();
+            handlePayment(price);
+        }
+
+        protected override void handlePayment(float price)
+        {
             d.Connect();
             int dcid = d.BeginTransaction(price);
             d.EndTransaction(dcid);
-            ispaymentdone = true;
+            base.handlePayment(price);
         }
     }
 }
