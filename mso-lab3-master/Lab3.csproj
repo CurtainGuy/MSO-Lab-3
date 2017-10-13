@@ -41,6 +41,7 @@
     <Compile Include="Creditpayment.cs" />
     <Compile Include="Debitpayment.cs" />
     <Compile Include="PaymentMethod.cs" />
+    <Compile Include="Printer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ticket.cs" />
