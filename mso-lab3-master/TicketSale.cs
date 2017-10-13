@@ -11,6 +11,7 @@ namespace Lab3
         //calculatePrice calculates the price using the information form ticket, it checks Tariefeenheden and the PricingTable.     
         int tariefeenheden;
         int tablecolumn;
+        PaymentMethod p;
         //calculate the price and call getTablecolumns()
         public float calculatePrice(Ticket ticket)
         {
@@ -34,15 +35,15 @@ namespace Lab3
         {
             if (ticket.TPayment == Payment.Cash)
             {
-                PaymentMethod p = new Cashpayment(price);
+                p = new Cashpayment(price);
             }
             if (ticket.TPayment == Payment.CreditCard)
             {
-                PaymentMethod p = new Creditpayment(price);
+                p = new Creditpayment(price);
             }
             if (ticket.TPayment == Payment.DebitCard)
             {
-                PaymentMethod p = new Debitpayment(price);
+                p = new Debitpayment(price);
             }
         }
     }

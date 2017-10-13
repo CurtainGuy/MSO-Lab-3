@@ -7,12 +7,19 @@ namespace Lab3
 {
     abstract class PaymentMethod
     {
-        float price;
-        protected bool ispaymentdone;
-        
+        protected bool ispaymentdone = false;
+
         protected virtual void handlePayment(float price)
         {
             ispaymentdone = true;
+        }
+
+        public bool Ispaymentdone
+        {
+            get
+            {
+                return Ispaymentdone;
+            }
         }
     }
 }

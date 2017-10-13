@@ -7,13 +7,20 @@ namespace Lab3
 {
     class Creditpayment : PaymentMethod
     {
+        CreditCard c;
+
         public Creditpayment(float price)
         {
-            CreditCard c = new CreditCard();
+            c = new CreditCard();
+            handlePayment(price);
+        }
+
+        protected override void handlePayment(float price)
+        {
             c.Connect();
             int ccid = c.BeginTransaction(price);
             c.EndTransaction(ccid);
-            ispaymentdone = true;
+            base.handlePayment(price);
         }
     }
 }
