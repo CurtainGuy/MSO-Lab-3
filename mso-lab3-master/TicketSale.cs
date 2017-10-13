@@ -13,6 +13,14 @@ namespace Lab3
         int tablecolumn;
         PaymentMethod p;
         //calculate the price and call getTablecolumns()
+        public bool isPaymentdone
+        {
+            get
+            {
+                return p.Ispaymentdone;
+            }
+        }
+        
         public float calculatePrice(Ticket ticket)
         {
             tariefeenheden = Tariefeenheden.getTariefeenheden(ticket.From, ticket.To);
@@ -37,11 +45,11 @@ namespace Lab3
             {
                 p = new Cashpayment(price);
             }
-            if (ticket.TPayment == Payment.CreditCard)
+            else if (ticket.TPayment == Payment.CreditCard)
             {
                 p = new Creditpayment(price);
             }
-            if (ticket.TPayment == Payment.DebitCard)
+            else if (ticket.TPayment == Payment.DebitCard)
             {
                 p = new Debitpayment(price);
             }
