@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Lab3
 {
@@ -10,8 +11,13 @@ namespace Lab3
         DebitCard d;
         
         public Debitpayment(float price)
-        {            
-			d = new DebitCard();
+        {
+            if (price == 0)
+            {
+                MessageBox.Show("Departure and destination are the same.");
+                return;
+            }
+            d = new DebitCard();
             handlePayment(price);
         }
 

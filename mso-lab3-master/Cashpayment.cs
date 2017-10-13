@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Lab3
 {
@@ -10,7 +11,13 @@ namespace Lab3
         IKEAMyntAtare2000 coin;
         public Cashpayment(float price)
         {
+            if (price == 0)
+            {
+                MessageBox.Show("Departure and destination are the same.");
+                return;
+            }
             coin = new IKEAMyntAtare2000();
+            handlePayment(price);
         }
         protected override void handlePayment(float price)
         {

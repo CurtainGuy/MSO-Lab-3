@@ -37,13 +37,13 @@ namespace Lab3
             {
                 p = new Cashpayment(price);
             }
-            if (ticket.TPayment == Payment.CreditCard)
-            {
-                p = new Creditpayment(price);
-            }
-            if (ticket.TPayment == Payment.DebitCard)
+            else if (ticket.TPayment == Payment.DebitCard)
             {
                 p = new Debitpayment(price);
+            }
+            else if (ticket.TPayment == Payment.CreditCard)
+            {
+                p = new Creditpayment(price);
             }
         }
     }
