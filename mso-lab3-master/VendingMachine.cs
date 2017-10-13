@@ -42,69 +42,6 @@ namespace Lab3
         {
             printer.printTicket(ticket);
         }
-        //tactical re-name
-		private void handleDayment(Ticket info)
-		{
-			// *************************************
-			// This is the code you need to refactor
-			// *************************************
-            // Get number of tariefeenheden
-			int tariefeenheden = Tariefeenheden.getTariefeenheden (info.From, info.To);
-
-			// Compute the column in the table based on choices
-			int tableColumn;
-			// First based on class
-			switch (info.TClass) {
-			case Class.FirstClass:
-				tableColumn = 3;
-				break;
-			default:
-				tableColumn = 0;
-				break;
-			}
-			// Then, on the discount
-			switch (info.TDiscount) {
-			case Discount.TwentyDiscount:
-				tableColumn += 1;
-				break;
-			case Discount.FortyDiscount:
-				tableColumn += 2;
-				break;
-			}
-
-			// Get price
-			float price = PricingTable.getPrice (tariefeenheden, tableColumn);
-			if (info.TWay == Way.Return) {
-				price *= 2;
-			}
-			// Add 50 cent if paying with credit card
-			if (info.TPayment == Payment.CreditCard) {
-				price += 0.50f;
-			}
-
-			// Pay
-			switch (info.TPayment) {
-			case Payment.CreditCard:
-				CreditCard c = new CreditCard ();
-				c.Connect ();
-				int ccid = c.BeginTransaction (price);
-				c.EndTransaction (ccid);
-				break;
-			case Payment.DebitCard:
-				DebitCard d = new DebitCard ();
-				d.Connect ();
-				int dcid = d.BeginTransaction (price);
-				d.EndTransaction (dcid);
-				break;
-			case Payment.Cash:
-				IKEAMyntAtare2000 coin = new IKEAMyntAtare2000 ();
-				coin.starta ();
-				coin.betala ((int) Math.Round(price * 100));
-				coin.stoppa ();
-				break;
-			}
-		}
-
 #region Set-up -- don't look at it
 		private void initializeControls()
 		{
