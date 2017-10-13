@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Lab3
 {
@@ -17,9 +18,9 @@ namespace Lab3
             }
         }
 
-        public void printTicket()
+        public void printTicket(Ticket ticket)
         {
-
+            MessageBox.Show("Ticket from " + ticket.From + " to " + ticket.To + ". We wish you a pleasant trip!");
         }
     }
 }

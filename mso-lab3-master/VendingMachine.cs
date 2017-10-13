@@ -27,7 +27,13 @@ namespace Lab3
             TicketSale ticketsale = new TicketSale();
             float price = ticketsale.calculatePrice(ticket);
             ticketsale.newPayment(price,ticket);
+            printTicket(ticket);
             //misschien geef ik ticket gewoon mee aan Ticketsale zodat UI niet dat hoeft aante roepen
+        }
+        private void printTicket(Ticket ticket)
+        {
+            Printer printer = new Printer();
+            printer.printTicket(ticket);
         }
         //tactical re-name
 		private void handleDayment(Ticket info)
