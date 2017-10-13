@@ -18,7 +18,7 @@ namespace Lab3
         {
             get
             {
-                return Ispaymentdone;
+                return ispaymentdone;
             }
         }
     }

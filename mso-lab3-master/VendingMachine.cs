@@ -6,6 +6,7 @@ namespace Lab3
 {
 	public class VendingMachine : Form
 	{
+        // The buttons which we omitted in the class diagram
 		ComboBox fromBox;
 		ComboBox toBox;
 		RadioButton firstClass;
@@ -18,86 +19,29 @@ namespace Lab3
 		ComboBox payment;
 		Button pay;
 
-		public VendingMachine ()
+        Printer printer;
+
+
+        public VendingMachine ()
 		{
-			initializeControls ();
+            printer = new Printer();
+            initializeControls ();
 		}
         private void handlePayment(Ticket ticket)
         {
             TicketSale ticketsale = new TicketSale();
             float price = ticketsale.calculatePrice(ticket);
             ticketsale.newPayment(price,ticket);
-            printTicket(ticket);
+            if (ticketsale.isPaymentdone)
+            {
+                printTicket(ticket);
+            }            
             //misschien geef ik ticket gewoon mee aan Ticketsale zodat UI niet dat hoeft aante roepen
         }
         private void printTicket(Ticket ticket)
         {
-            Printer printer = new Printer();
             printer.printTicket(ticket);
         }
-        //tactical re-name
-		private void handleDayment(Ticket info)
-		{
-			// *************************************
-			// This is the code you need to refactor
-			// *************************************
-            // Get number of tariefeenheden
-			int tariefeenheden = Tariefeenheden.getTariefeenheden (info.From, info.To);
-
-			// Compute the column in the table based on choices
-			int tableColumn;
-			// First based on class
-			switch (info.TClass) {
-			case Class.FirstClass:
-				tableColumn = 3;
-				break;
-			default:
-				tableColumn = 0;
-				break;
-			}
-			// Then, on the discount
-			switch (info.TDiscount) {
-			case Discount.TwentyDiscount:
-				tableColumn += 1;
-				break;
-			case Discount.FortyDiscount:
-				tableColumn += 2;
-				break;
-			}
-
-			// Get price
-			float price = PricingTable.getPrice (tariefeenheden, tableColumn);
-			if (info.TWay == Way.Return) {
-				price *= 2;
-			}
-			// Add 50 cent if paying with credit card
-			if (info.TPayment == Payment.CreditCard) {
-				price += 0.50f;
-			}
-
-			// Pay
-			switch (info.TPayment) {
-			case Payment.CreditCard:
-				CreditCard c = new CreditCard ();
-				c.Connect ();
-				int ccid = c.BeginTransaction (price);
-				c.EndTransaction (ccid);
-				break;
-			case Payment.DebitCard:
-				DebitCard d = new DebitCard ();
-				d.Connect ();
-				int dcid = d.BeginTransaction (price);
-				d.EndTransaction (dcid);
-				break;
-			case Payment.Cash:
-				IKEAMyntAtare2000 coin = new IKEAMyntAtare2000 ();
-				coin.starta ();
-				coin.betala ((int) Math.Round(price * 100));
-				coin.stoppa ();
-				break;
-			}
-		}
-
 #region Set-up -- don't look at it
 		private void initializeControls()
 		{
@@ -224,49 +168,8 @@ namespace Lab3
 			grid.Controls.Add (pay, 0, 3);
 			grid.SetColumnSpan (pay, 6);
 			// Set up event
-			pay.Click += (object sender, EventArgs e) => handlePayment(getUIInfo());
+			pay.Click += (object sender, EventArgs e) => handlePayment(getTicket());
 		}
-
-		private Ticket getUIInfo()
-		{
-			Class cls;
-			if (firstClass.Checked)
-				cls = Class.FirstClass;
-			else
-				cls = Class.SecondClass;
-
-			Way way;
-			if (oneWay.Checked)
-				way = Way.OneWay;
-			else
-				way = Way.Return;
-
-			Discount dis;
-			if (noDiscount.Checked)
-				dis = Discount.NoDiscount;
-			else if (twentyDiscount.Checked)
-				dis = Discount.TwentyDiscount;
-			else
-				dis = Discount.FortyDiscount;
-
-			Payment pment;
-			switch ((string)payment.SelectedItem) {
-			case "Credit card":
-				pment = Payment.CreditCard;
-				break;
-			case "Debit card":
-				pment = Payment.DebitCard;
-				break;
-			default:
-				pment = Payment.Cash;
-				break;
-			}
-
-			return new Ticket ((string)fromBox.SelectedItem,
-				(string)toBox.SelectedItem,
-				cls, way, dis, pment);
-		}
-        #endregion
 
         private void InitializeComponent()
         {
@@ -284,6 +187,49 @@ namespace Lab3
         private void UI_Load(object sender, EventArgs e)
         {
 
+        }
+        #endregion
+
+
+        private Ticket getTicket()
+        {
+            Class cls;
+            if (firstClass.Checked)
+                cls = Class.FirstClass;
+            else
+                cls = Class.SecondClass;
+
+            Way way;
+            if (oneWay.Checked)
+                way = Way.OneWay;
+            else
+                way = Way.Return;
+
+            Discount dis;
+            if (noDiscount.Checked)
+                dis = Discount.NoDiscount;
+            else if (twentyDiscount.Checked)
+                dis = Discount.TwentyDiscount;
+            else
+                dis = Discount.FortyDiscount;
+
+            Payment pment;
+            switch ((string)payment.SelectedItem)
+            {
+                case "Credit card":
+                    pment = Payment.CreditCard;
+                    break;
+                case "Debit card":
+                    pment = Payment.DebitCard;
+                    break;
+                default:
+                    pment = Payment.Cash;
+                    break;
+            }
+
+            return new Ticket((string)fromBox.SelectedItem,
+                (string)toBox.SelectedItem,
+                cls, way, dis, pment);
         }
     }
 }
