@@ -168,49 +168,8 @@ namespace Lab3
 			grid.Controls.Add (pay, 0, 3);
 			grid.SetColumnSpan (pay, 6);
 			// Set up event
-			pay.Click += (object sender, EventArgs e) => handlePayment(getUIInfo());
+			pay.Click += (object sender, EventArgs e) => handlePayment(getTicket());
 		}
-
-		private Ticket getUIInfo()
-		{
-			Class cls;
-			if (firstClass.Checked)
-				cls = Class.FirstClass;
-			else
-				cls = Class.SecondClass;
-
-			Way way;
-			if (oneWay.Checked)
-				way = Way.OneWay;
-			else
-				way = Way.Return;
-
-			Discount dis;
-			if (noDiscount.Checked)
-				dis = Discount.NoDiscount;
-			else if (twentyDiscount.Checked)
-				dis = Discount.TwentyDiscount;
-			else
-				dis = Discount.FortyDiscount;
-
-			Payment pment;
-			switch ((string)payment.SelectedItem) {
-			case "Credit card":
-				pment = Payment.CreditCard;
-				break;
-			case "Debit card":
-				pment = Payment.DebitCard;
-				break;
-			default:
-				pment = Payment.Cash;
-				break;
-			}
-
-			return new Ticket ((string)fromBox.SelectedItem,
-				(string)toBox.SelectedItem,
-				cls, way, dis, pment);
-		}
-        #endregion
 
         private void InitializeComponent()
         {
@@ -228,6 +187,49 @@ namespace Lab3
         private void UI_Load(object sender, EventArgs e)
         {
 
+        }
+        #endregion
+
+
+        private Ticket getTicket()
+        {
+            Class cls;
+            if (firstClass.Checked)
+                cls = Class.FirstClass;
+            else
+                cls = Class.SecondClass;
+
+            Way way;
+            if (oneWay.Checked)
+                way = Way.OneWay;
+            else
+                way = Way.Return;
+
+            Discount dis;
+            if (noDiscount.Checked)
+                dis = Discount.NoDiscount;
+            else if (twentyDiscount.Checked)
+                dis = Discount.TwentyDiscount;
+            else
+                dis = Discount.FortyDiscount;
+
+            Payment pment;
+            switch ((string)payment.SelectedItem)
+            {
+                case "Credit card":
+                    pment = Payment.CreditCard;
+                    break;
+                case "Debit card":
+                    pment = Payment.DebitCard;
+                    break;
+                default:
+                    pment = Payment.Cash;
+                    break;
+            }
+
+            return new Ticket((string)fromBox.SelectedItem,
+                (string)toBox.SelectedItem,
+                cls, way, dis, pment);
         }
     }
 }
