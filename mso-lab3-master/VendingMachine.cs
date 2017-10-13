@@ -24,7 +24,8 @@ namespace Lab3
 
         public VendingMachine ()
 		{
-			initializeControls ();
+            printer = new Printer();
+            initializeControls ();
 		}
         private void handlePayment(Ticket ticket)
         {
@@ -39,7 +40,6 @@ namespace Lab3
         }
         private void printTicket(Ticket ticket)
         {
-            printer = new Printer();
             printer.printTicket(ticket);
         }
         //tactical re-name
