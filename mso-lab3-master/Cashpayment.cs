@@ -16,8 +16,8 @@ namespace Lab3
                 MessageBox.Show("Departure and destination are the same.");
                 return;
             }
-            handlePayment(price);
             coin = new IKEAMyntAtare2000();
+            handlePayment(price);            
         }
         protected override void handlePayment(float price)
         {
