@@ -6,6 +6,7 @@ namespace Lab3
 {
 	public class VendingMachine : Form
 	{
+        // The buttons which we omitted in the class diagram
 		ComboBox fromBox;
 		ComboBox toBox;
 		RadioButton firstClass;
@@ -18,7 +19,10 @@ namespace Lab3
 		ComboBox payment;
 		Button pay;
 
-		public VendingMachine ()
+        Printer printer;
+
+
+        public VendingMachine ()
 		{
 			initializeControls ();
 		}
@@ -35,7 +39,7 @@ namespace Lab3
         }
         private void printTicket(Ticket ticket)
         {
-            Printer printer = new Printer();
+            printer = new Printer();
             printer.printTicket(ticket);
         }
         //tactical re-name
